@@ -1,0 +1,12 @@
+register "it.giacomobergami.jbtex3.querying.XQueryEvaluator"           as "xquery".
+register "it.giacomobergami.jbtex3.querying.AntlrTagRewriterEvaluator" as "latex".
+register "it.giacomobergami.jbtex3.querying.DocumentImportEvaluator"   as "default".
+
+
+eval "xquery"  query val "doc('file:@default')/information/abstract/text()"
+                     with document from file "information.xml".
+
+print "".
+
+eval "latex"  query  val ""
+              with document from file "paper".

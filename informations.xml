@@ -1,0 +1,39 @@
+<information>
+	<title>THoSP: an Algorithm for Nesting Property Graphs</title>
+	<year>2018</year>
+	<short>GRADES-NDA'18 </short>
+	<long>1st Joint International Workshop on Graph Data Management Experiences &amp;Systems (GRADES) and Network Data Analytics (NDA)</long>
+	<days>June 10--15</days>
+	<place>Houston, TX, USA</place>
+	<price>15.00</price>
+	<doi>10.1145/3210259.3210267</doi>
+	<isbn>978-1-4503-5695-4/18/06</isbn>
+	<authors>
+		<author>
+			<name>Giacomo</name>
+			<surname>Bergami</surname>
+			<email>giacomo.bergami2@unibo.it</email>
+			<affiliation>University of Bologna</affiliation>
+			<img src="href" />
+			<bio></bio>
+		</author>
+		<author>
+			<name>André</name>
+			<surname>Petermann</surname>
+			<email>petermann@informatik.uni-leipzig.de</email>
+			<affiliation>University of Leipzig</affiliation>
+			<img src="href" />
+			<bio></bio>
+		</author>
+		<author>
+			<name>Danilo</name>
+			<surname>Montesi</surname>
+			<email>danilo.montesi@unibo.it</email>
+			<affiliation>University of Bologna</affiliation>
+			<img src="href" />
+			<bio></bio>
+		</author>
+	</authors>
+	<abstract>Despite the growing popularity of techniques related to graph summarization, a general operator for the flexible nesting of graphs is still missing.
+  We propose a novel nested graph data model and a powerful graph nesting operator. In contrast to existing approaches, our approach is able to summarize vertices and paths among vertex groups within a single query. Further on, our model supports partial nestings under the preservation of original graph elements as well as the full recovery of the original graph. We propose an efficient nesting algorithm (THoSP) that is able to perform vertex and path nestings in a single visit of the input graph. Results of an experimental evaluation show that THoSP outperforms equivalent implementations based on graph (Cypher, SPARQL), relational (SQL) and document oriented (ArangoDB) databases.</abstract>
+</information>

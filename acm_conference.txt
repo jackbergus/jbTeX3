@@ -1,0 +1,21 @@
+register "it.giacomobergami.jbtex3.querying.XQueryEvaluator" as "xquery".
+
+print "\\setcopyright{acmcopyright}".
+
+eval "xquery" query from file "queries/acm/conference.xq"
+                    with document from file "informations.xml".
+
+
+
+print "".
+print "".
+print "\\fancyhead{}".
+print "".
+
+eval "xquery" query val "let $nl := '&#10;'
+                         let $doc := doc('file:@default')
+                         return concat('\\title{', $doc/title/text(),  '}' )"
+              with document from file "informations.xml".
+
+eval "xquery" query from file "queries/acm/authors.xq"
+              with document from file "informations.xml".

@@ -17,15 +17,70 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>it.giacomobergami.jbtex3.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-my-jar-with-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
+
+    <!-- http://www.novixys.com/blog/install-use-oracle-xquery-processor-java/ -->
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
             <version>4.7</version>
         </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.xqj</groupId>
+            <artifactId>oxquery</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.xqj</groupId>
+            <artifactId>xqjapi</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.xqj</groupId>
+            <artifactId>orai18n-mapping</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.xqj</groupId>
+            <artifactId>xmlparserv2</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.xqj</groupId>
+            <artifactId>apache-xmlbeans</artifactId>
+            <version>0.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>

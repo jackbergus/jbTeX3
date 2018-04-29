@@ -61,7 +61,15 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
 	 * @throws IOException
 	 */
 	public static GenerateFunctions fromFile(File file) throws IOException {
-		patternsParser parser = new patternsParser(new CommonTokenStream(new patternsLexer(CharStreams.fromPath(file.toPath()))));
+		return fromStreams(CharStreams.fromPath(file.toPath()));
+	}
+
+	public static GenerateFunctions fromString(String str) {
+		return fromStreams(CharStreams.fromString(str));
+	}
+
+	private static GenerateFunctions fromStreams(CharStream stream) {
+		patternsParser parser = new patternsParser(new CommonTokenStream(new patternsLexer(stream)));
 		GenerateFunctions gf = new GenerateFunctions();
 		gf.visit(parser.tagList());
 		return gf;

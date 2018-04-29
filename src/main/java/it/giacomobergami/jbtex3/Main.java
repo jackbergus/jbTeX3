@@ -21,6 +21,11 @@
 
 package it.giacomobergami.jbtex3;
 
+import it.giacomobergami.jbtex3.meta.MetaConfigurator;
+import it.giacomobergami.jbtex3.querying.AntlrTagRewriterEvaluator;
+import it.giacomobergami.jbtex3.querying.QueryEvaluator;
+import it.giacomobergami.jbtex3.querying.QueryEvaluatorFactory;
+import it.giacomobergami.jbtex3.querying.XQueryEvaluator;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,10 +34,14 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String args[]) throws IOException, ParserConfigurationException, SAXException {
-        RuleParser rp = new RuleParser(new File("default_latex.txt"));
-        rp.visit(new File("section.xml"));
-        System.out.println(rp.toString());
+    public static void main(String args[]) {
+        /*
+        QueryEvaluator qe = QueryEvaluatorFactory.istantiate(XQueryEvaluator.class.getCanonicalName());
+        qe.setQueryFile(new File("authors.xq"));
+        System.out.println(qe.useDocument(new File("informations.xml")));*/
+        MetaConfigurator conf = new MetaConfigurator();
+        conf.setQueryFile(new File("acm_conference.txt"));
+        System.out.println(conf.useDocument(null));
     }
 
 }

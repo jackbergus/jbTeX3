@@ -1,0 +1,39 @@
+h2 => "\\section{" //text() "}" @(id){ "\\label{" @id "}
+
+" };
+
+h3 => "\\subsection{" //text() "}" @(id){"\\label{" @id "}
+
+"};
+
+ol => "\\begin{enumerate}
+" //text() "
+\\end{enumerate}";
+
+ul => "\\begin{itemize}
+" //text() "
+\\end{itemize}";
+
+li => "\\item" //text();
+
+xmp => "\\begin{example}
+" //text() "
+\\end{example}";
+
+dfn => "\\begin{definition}
+" //text() "
+\\end{definition}";
+
+listing => "\\begin{lstlistings}
+" //text() "
+\\end{lstlistings}";
+
+br => "\\medskip
+
+";
+
+cite => "\\cite{" //text() "}";
+a => "\\url{" @href "}";
+img => "\\includefigure[" @(scale){"scale="@scale} "]{" @src "}" ;
+b => "\\textbf{" //text() "}";
+i => "\\textit{" //text() "}".

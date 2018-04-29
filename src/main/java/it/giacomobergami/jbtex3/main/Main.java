@@ -22,7 +22,10 @@
 package it.giacomobergami.jbtex3.main;
 
 import com.beust.jcommander.JCommander;
+import it.giacomobergami.jbtex3.meta.MetaConfigurator;
 import org.apache.log4j.Logger;
+
+import java.io.File;
 
 public class Main {
     private static CommandLineArguments arguments = new CommandLineArguments();
@@ -36,10 +39,9 @@ public class Main {
                 .parse(args);
         arguments.setLogging();
 
-        Logger.getLogger(Main.class).info("closing now...");
-        /*MetaConfigurator conf = new MetaConfigurator();
-        conf.setQueryFile(new File("acm_conference.txt"));
-        System.out.println(conf.useDocument(null));*/
+        MetaConfigurator conf = new MetaConfigurator();
+        conf.setQueryFile(new File("queries/acm/acm_conference.txt"));
+        System.out.println(conf.useDocument(null));
     }
 
 }

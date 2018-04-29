@@ -25,6 +25,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +41,7 @@ import java.util.function.Function;
  */
 public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, String>> implements patternsVisitor<Function<State, String>> {
 
+	private static final Logger logger = Logger.getLogger(GenerateFunctions.class);
 	public Map<String, Function<State, String>> rewritings = new HashMap<>();
 	private static final Function<State, String> emptyFunction = x -> "";
 	private static final Function<State, String> toText = State::getText;
@@ -107,9 +109,14 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public Function<State, String> visitTag(patternsParser.TagContext ctx) {
-		Function<State, String> fun = ctx.pattern().accept(this);
-		String attribute = ctx.SMALLER().getText();
-		rewritings.put(attribute, fun);
+        patternsParser.PatternContext pattern = ctx.pattern();
+        if (pattern != null) {
+            Function<State, String> fun = ctx.pattern().accept(this);
+            String attribute = ctx.SMALLER().getText();
+            rewritings.put(attribute, fun);
+        } else {
+            visitChildren(ctx);
+        }
 		return emptyFunction;
 	}
 
@@ -120,6 +127,16 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
 	@Override
 	public Function<State, String> visitPattern(patternsParser.PatternContext ctx) {
 		return visitChildren(ctx);
+	}
+
+	@Override
+	public Function<State, String> visitImp(patternsParser.ImpContext ctx) {
+		try {
+			rewritings.putAll(GenerateFunctions.fromFile(new File(ctx.QSTRING().getText())).rewritings);
+		} catch (IOException e) {
+			logger.error("Error while parsing file "+ctx.QSTRING().getText()+": no updates.", e);
+		}
+		return emptyFunction;
 	}
 
 	/**

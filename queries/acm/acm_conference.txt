@@ -1,0 +1,25 @@
+register "it.giacomobergami.jbtex3.querying.XQueryEvaluator" as "xquery".
+register "it.giacomobergami.jbtex3.querying.AntlrTagRewriterEvaluator" as "latex".
+register "it.giacomobergami.jbtex3.querying.DocumentImportEvaluator" as "default".
+
+eval "default" query val ""
+                     with document from file "queries/acm/00_header.tex".
+
+eval "xquery"  query from file "queries/acm/conference.xq"
+                     with document from file "information.xml".
+
+print "".
+print "".
+print "\\fancyhead{}".
+print "".
+
+eval "xquery" query from file "queries/acm/authors.xq"
+              with document from file "information.xml".
+
+print "\\begin{document}".
+\print "\\maketitle".
+
+eval "latex"  query from file "queries/acm/acm_latex.txt"
+              with document from file "paper".
+
+print "\\end{document}".

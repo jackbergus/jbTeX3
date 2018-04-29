@@ -17,24 +17,24 @@ public class patternsParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, SMALLER=9, 
-		TEXT=10, QSTRING=11, WS=12;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
+		SMALLER=10, TEXT=11, QSTRING=12, WS=13;
 	public static final int
-		RULE_tagList = 0, RULE_tag = 1, RULE_pattern = 2, RULE_expandAttribute = 3, 
-		RULE_quotedString = 4, RULE_conditionalExpand = 5, RULE_conditionalExpandOrFalse = 6, 
-		RULE_expandText = 7;
+		RULE_tagList = 0, RULE_tag = 1, RULE_pattern = 2, RULE_imp = 3, RULE_expandAttribute = 4, 
+		RULE_quotedString = 5, RULE_conditionalExpand = 6, RULE_conditionalExpandOrFalse = 7, 
+		RULE_expandText = 8;
 	public static final String[] ruleNames = {
-		"tagList", "tag", "pattern", "expandAttribute", "quotedString", "conditionalExpand", 
-		"conditionalExpandOrFalse", "expandText"
+		"tagList", "tag", "pattern", "imp", "expandAttribute", "quotedString", 
+		"conditionalExpand", "conditionalExpandOrFalse", "expandText"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "';'", "'.'", "'=>'", "'@'", "'@('", "'){'", "'}'", "'%'", null, 
-		"'//text()'"
+		null, "';'", "'.'", "'=>'", "'import'", "'@'", "'@('", "'){'", "'}'", 
+		"'%'", null, "'//text()'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, "SMALLER", "TEXT", 
-		"QSTRING", "WS"
+		null, null, null, null, null, null, null, null, null, null, "SMALLER", 
+		"TEXT", "QSTRING", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -118,27 +118,27 @@ public class patternsParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(21);
+			setState(23);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(16);
+					setState(18);
 					tag();
-					setState(17);
+					setState(19);
 					match(T__0);
 					}
 					} 
 				}
-				setState(23);
+				setState(25);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			}
-			setState(24);
+			setState(26);
 			tag();
-			setState(25);
+			setState(27);
 			match(T__1);
 			}
 		}
@@ -154,6 +154,9 @@ public class patternsParser extends Parser {
 	}
 
 	public static class TagContext extends ParserRuleContext {
+		public ImpContext imp() {
+			return getRuleContext(ImpContext.class,0);
+		}
 		public TerminalNode SMALLER() { return getToken(patternsParser.SMALLER, 0); }
 		public PatternContext pattern() {
 			return getRuleContext(PatternContext.class,0);
@@ -183,13 +186,27 @@ public class patternsParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			setState(27);
-			match(SMALLER);
-			setState(28);
-			match(T__2);
-			setState(29);
-			pattern();
+			setState(33);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case T__3:
+				{
+				setState(29);
+				imp();
+				}
+				break;
+			case SMALLER:
+				{
+				setState(30);
+				match(SMALLER);
+				setState(31);
+				match(T__2);
+				setState(32);
+				pattern();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 			}
 		}
@@ -261,50 +278,94 @@ public class patternsParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36); 
+			setState(40); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(36);
+				setState(40);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 				case 1:
 					{
-					setState(31);
+					setState(35);
 					expandAttribute();
 					}
 					break;
 				case 2:
 					{
-					setState(32);
+					setState(36);
 					quotedString();
 					}
 					break;
 				case 3:
 					{
-					setState(33);
+					setState(37);
 					conditionalExpand();
 					}
 					break;
 				case 4:
 					{
-					setState(34);
+					setState(38);
 					conditionalExpandOrFalse();
 					}
 					break;
 				case 5:
 					{
-					setState(35);
+					setState(39);
 					expandText();
 					}
 					break;
 				}
 				}
-				setState(38); 
+				setState(42); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__4) | (1L << TEXT) | (1L << QSTRING))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << TEXT) | (1L << QSTRING))) != 0) );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ImpContext extends ParserRuleContext {
+		public TerminalNode QSTRING() { return getToken(patternsParser.QSTRING, 0); }
+		public ImpContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_imp; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof patternsListener ) ((patternsListener)listener).enterImp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof patternsListener ) ((patternsListener)listener).exitImp(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof patternsVisitor ) return ((patternsVisitor<? extends T>)visitor).visitImp(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ImpContext imp() throws RecognitionException {
+		ImpContext _localctx = new ImpContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_imp);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(44);
+			match(T__3);
+			setState(45);
+			match(QSTRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -341,13 +402,13 @@ public class patternsParser extends Parser {
 
 	public final ExpandAttributeContext expandAttribute() throws RecognitionException {
 		ExpandAttributeContext _localctx = new ExpandAttributeContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_expandAttribute);
+		enterRule(_localctx, 8, RULE_expandAttribute);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
-			match(T__3);
-			setState(41);
+			setState(47);
+			match(T__4);
+			setState(48);
 			match(SMALLER);
 			}
 		}
@@ -385,11 +446,11 @@ public class patternsParser extends Parser {
 
 	public final QuotedStringContext quotedString() throws RecognitionException {
 		QuotedStringContext _localctx = new QuotedStringContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_quotedString);
+		enterRule(_localctx, 10, RULE_quotedString);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(50);
 			match(QSTRING);
 			}
 		}
@@ -430,20 +491,20 @@ public class patternsParser extends Parser {
 
 	public final ConditionalExpandContext conditionalExpand() throws RecognitionException {
 		ConditionalExpandContext _localctx = new ConditionalExpandContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_conditionalExpand);
+		enterRule(_localctx, 12, RULE_conditionalExpand);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(45);
-			match(T__4);
-			setState(46);
-			match(SMALLER);
-			setState(47);
+			setState(52);
 			match(T__5);
-			setState(48);
-			pattern();
-			setState(49);
+			setState(53);
+			match(SMALLER);
+			setState(54);
 			match(T__6);
+			setState(55);
+			pattern();
+			setState(56);
+			match(T__7);
 			}
 		}
 		catch (RecognitionException re) {
@@ -486,24 +547,24 @@ public class patternsParser extends Parser {
 
 	public final ConditionalExpandOrFalseContext conditionalExpandOrFalse() throws RecognitionException {
 		ConditionalExpandOrFalseContext _localctx = new ConditionalExpandOrFalseContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_conditionalExpandOrFalse);
+		enterRule(_localctx, 14, RULE_conditionalExpandOrFalse);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51);
-			match(T__4);
-			setState(52);
-			match(SMALLER);
-			setState(53);
+			setState(58);
 			match(T__5);
-			setState(54);
-			pattern();
-			setState(55);
-			match(T__7);
-			setState(56);
-			pattern();
-			setState(57);
+			setState(59);
+			match(SMALLER);
+			setState(60);
 			match(T__6);
+			setState(61);
+			pattern();
+			setState(62);
+			match(T__8);
+			setState(63);
+			pattern();
+			setState(64);
+			match(T__7);
 			}
 		}
 		catch (RecognitionException re) {
@@ -540,11 +601,11 @@ public class patternsParser extends Parser {
 
 	public final ExpandTextContext expandText() throws RecognitionException {
 		ExpandTextContext _localctx = new ExpandTextContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_expandText);
+		enterRule(_localctx, 16, RULE_expandText);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(59);
+			setState(66);
 			match(TEXT);
 			}
 		}
@@ -560,22 +621,23 @@ public class patternsParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\16@\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\7\2\26"+
-		"\n\2\f\2\16\2\31\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4"+
-		"\6\4\'\n\4\r\4\16\4(\3\5\3\5\3\5\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3"+
-		"\b\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2\2="+
-		"\2\27\3\2\2\2\4\35\3\2\2\2\6&\3\2\2\2\b*\3\2\2\2\n-\3\2\2\2\f/\3\2\2\2"+
-		"\16\65\3\2\2\2\20=\3\2\2\2\22\23\5\4\3\2\23\24\7\3\2\2\24\26\3\2\2\2\25"+
-		"\22\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30\32\3\2\2\2\31"+
-		"\27\3\2\2\2\32\33\5\4\3\2\33\34\7\4\2\2\34\3\3\2\2\2\35\36\7\13\2\2\36"+
-		"\37\7\5\2\2\37 \5\6\4\2 \5\3\2\2\2!\'\5\b\5\2\"\'\5\n\6\2#\'\5\f\7\2$"+
-		"\'\5\16\b\2%\'\5\20\t\2&!\3\2\2\2&\"\3\2\2\2&#\3\2\2\2&$\3\2\2\2&%\3\2"+
-		"\2\2\'(\3\2\2\2(&\3\2\2\2()\3\2\2\2)\7\3\2\2\2*+\7\6\2\2+,\7\13\2\2,\t"+
-		"\3\2\2\2-.\7\r\2\2.\13\3\2\2\2/\60\7\7\2\2\60\61\7\13\2\2\61\62\7\b\2"+
-		"\2\62\63\5\6\4\2\63\64\7\t\2\2\64\r\3\2\2\2\65\66\7\7\2\2\66\67\7\13\2"+
-		"\2\678\7\b\2\289\5\6\4\29:\7\n\2\2:;\5\6\4\2;<\7\t\2\2<\17\3\2\2\2=>\7"+
-		"\f\2\2>\21\3\2\2\2\5\27&(";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17G\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\3\2"+
+		"\7\2\30\n\2\f\2\16\2\33\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\5\3$\n\3\3\4"+
+		"\3\4\3\4\3\4\3\4\6\4+\n\4\r\4\16\4,\3\5\3\5\3\5\3\6\3\6\3\6\3\7\3\7\3"+
+		"\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\2\2"+
+		"\13\2\4\6\b\n\f\16\20\22\2\2\2D\2\31\3\2\2\2\4#\3\2\2\2\6*\3\2\2\2\b."+
+		"\3\2\2\2\n\61\3\2\2\2\f\64\3\2\2\2\16\66\3\2\2\2\20<\3\2\2\2\22D\3\2\2"+
+		"\2\24\25\5\4\3\2\25\26\7\3\2\2\26\30\3\2\2\2\27\24\3\2\2\2\30\33\3\2\2"+
+		"\2\31\27\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2\2\33\31\3\2\2\2\34\35\5\4\3"+
+		"\2\35\36\7\4\2\2\36\3\3\2\2\2\37$\5\b\5\2 !\7\f\2\2!\"\7\5\2\2\"$\5\6"+
+		"\4\2#\37\3\2\2\2# \3\2\2\2$\5\3\2\2\2%+\5\n\6\2&+\5\f\7\2\'+\5\16\b\2"+
+		"(+\5\20\t\2)+\5\22\n\2*%\3\2\2\2*&\3\2\2\2*\'\3\2\2\2*(\3\2\2\2*)\3\2"+
+		"\2\2+,\3\2\2\2,*\3\2\2\2,-\3\2\2\2-\7\3\2\2\2./\7\6\2\2/\60\7\16\2\2\60"+
+		"\t\3\2\2\2\61\62\7\7\2\2\62\63\7\f\2\2\63\13\3\2\2\2\64\65\7\16\2\2\65"+
+		"\r\3\2\2\2\66\67\7\b\2\2\678\7\f\2\289\7\t\2\29:\5\6\4\2:;\7\n\2\2;\17"+
+		"\3\2\2\2<=\7\b\2\2=>\7\f\2\2>?\7\t\2\2?@\5\6\4\2@A\7\13\2\2AB\5\6\4\2"+
+		"BC\7\n\2\2C\21\3\2\2\2DE\7\r\2\2E\23\3\2\2\2\6\31#*,";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

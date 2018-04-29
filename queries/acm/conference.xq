@@ -1,5 +1,5 @@
 (:~
- : queries/acm/abstract.xq
+ : queries/acm/title_abstract.xq
  : This file is part of jbtex3
  :
  : Copyright (C) 2018 giacomo
@@ -26,11 +26,12 @@ return concat('\copyrightyear{', $doc/information/year/text(),  '}', $nl,
               ']{', $doc/information/long/text(),
               '}{', $doc/information/days/text(), ',', $doc/information/year,
               '}{', $doc/information/place/text(), '}', $nl,
-              '\acmBooktitle[', $doc/information/short/text() ,
+              '\acmBooktitle{', $doc/information/short/text() ,
               ' : ', $doc/information/long/text(),
               ', ', $doc/information/days/text(), ', ', $doc/information/year,
               ', ', $doc/information/place/text(), '}', $nl,
               '\acmPrice{', $doc/information/price/text() , '}', $nl,
               '\acmDOI{', $doc/information/doi/text() , '}', $nl,
               '\acmISBN{', $doc/information/isbn/text() , '}', $nl,
-              '\begin{abstract}', $nl, $doc/information/abstract, $nl, '\end{abstract}' )
+              '\title{', $doc/information/title/text(), '}', $nl, $nl,
+              '\begin{abstract}', $nl, $doc/information/abstract, $nl, '\end{abstract}', $nl )

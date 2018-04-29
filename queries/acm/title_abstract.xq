@@ -1,5 +1,5 @@
 (:~
- : queries/acm/abstract.xq
+ : queries/acm/title_abstract.xq
  : This file is part of jbtex3
  :
  : Copyright (C) 2018 giacomo
@@ -20,4 +20,5 @@
  :)
 let $nl := '&#10;'
 let $doc := doc('file:@default')
-return concat('\begin{abstract}', $nl, $doc/information/abstract, $nl, '\end{abstract}' )
+return concat('\title{', $doc/information/title/text(), '}', $nl, $nl,
+              '\begin{abstract}', $nl, $doc/information/abstract/text(), $nl, '\end{abstract}' )

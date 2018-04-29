@@ -25,7 +25,6 @@ import oracle.xml.xquery.OXQConnection;
 import oracle.xml.xquery.OXQDataSource;
 import oracle.xml.xquery.OXQView;
 import org.apache.log4j.Logger;
-import sun.rmi.runtime.Log;
 
 import javax.xml.xquery.*;
 import java.io.File;

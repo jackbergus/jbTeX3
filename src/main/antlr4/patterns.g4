@@ -30,9 +30,10 @@ grammar patterns;
 }
 
 tagList : (tag ';')*  tag '.';
-tag: (SMALLER '=>' pattern);
+tag: (imp | SMALLER '=>' pattern);
 pattern : (expandAttribute | quotedString | conditionalExpand | conditionalExpandOrFalse | expandText)+;
 
+imp : 'import' QSTRING;
 expandAttribute : '@' SMALLER;
 SMALLER : [a-z0-9]+;
 quotedString : QSTRING ;

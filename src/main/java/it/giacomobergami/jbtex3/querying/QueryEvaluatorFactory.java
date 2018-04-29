@@ -21,6 +21,8 @@
 
 package it.giacomobergami.jbtex3.querying;
 
+import org.apache.log4j.Logger;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -28,7 +30,9 @@ import java.util.Map;
 
 public class QueryEvaluatorFactory {
 
+    private static final Logger logger = Logger.getLogger(QueryEvaluatorFactory.class);
     private static Map<String, Class<?>> associations = new HashMap<>();
+    private static final DocumentImportEvaluator die = new DocumentImportEvaluator();
 
     public static boolean load(String shortName, String pathName) {
         try {
@@ -36,13 +40,15 @@ public class QueryEvaluatorFactory {
             associations.put(shortName, clazz);
             return true;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Error while associating "+shortName+" to class "+pathName, e);
             return false;
         }
     }
 
     public static QueryEvaluator istantiate(String className) {
-        try {
+        if (className.toLowerCase().equals("default"))
+            return die;
+        else try {
             Class<?> clazz;
             if (associations.containsKey(className)) {
                 clazz = associations.get(className);
@@ -55,11 +61,12 @@ public class QueryEvaluatorFactory {
             if (object instanceof QueryEvaluator) {
                 return (QueryEvaluator)object;
             } else {
-                return null;
+                return die;
             }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            e.printStackTrace();
-            return null;
+            logger.error("Error while instantiating "+className, e);
+            logger.info("Associating " + className+" to DocumentImportEvaluator");
+            return die;
         }
     }
 

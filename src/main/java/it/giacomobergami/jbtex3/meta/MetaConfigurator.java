@@ -27,6 +27,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +41,7 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 	private final String emptyString = "";
 	private QueryEvaluator instance;
 	private metaParser parser;
+	private final static Logger logger = Logger.getLogger(MetaConfigurator.class);
 
 	/**
 	 * Returns the text-conversion representation
@@ -133,19 +135,18 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 				return sb.toString();
 			}
 		}
-		return "";
+		return emptyString; // If the path is neither a file or a directory or if the file doesn't exist, then return an empty string
 	}
+
 	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * reading the query file
 	 */
 	@Override public String visitImp(metaParser.ImpContext ctx) {
+		File file = new File(ctx.QSTRING().getText());
 		try {
-			return MetaConfigurator.fromFile(new File(ctx.QSTRING().getText())).useDocument(null);
+			return MetaConfigurator.fromFile(file).useDocument(null);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("setQueryFile: error while reading query file [returning empty string]" + file.getName(), e);
 			return emptyString;
 		}
 	}
@@ -175,13 +176,13 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 
 	@Override
 	public QueryEvaluator setQueryFile(File file) {
-		if (!file.exists())
+		if (file == null || !file.exists())
 			return setQueryString("");
 		else try {
 			parser = new metaParser(new CommonTokenStream(new metaLexer(CharStreams.fromPath(file.toPath()))));
 			return this;
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("setQueryFile: error while reading file [returning null]" + file.getName(), e);
 			return null;
 		}
 	}

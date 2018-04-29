@@ -24,6 +24,8 @@ package it.giacomobergami.jbtex3.querying;
 import oracle.xml.xquery.OXQConnection;
 import oracle.xml.xquery.OXQDataSource;
 import oracle.xml.xquery.OXQView;
+import org.apache.log4j.Logger;
+import sun.rmi.runtime.Log;
 
 import javax.xml.xquery.*;
 import java.io.File;
@@ -31,6 +33,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class XQueryEvaluator implements QueryEvaluator {
+
+    private static final Logger logger = Logger.getLogger(XQueryEvaluator.class);
     private XQueryEntityResolver mer = new XQueryEntityResolver();
     private File queryFile;
     private String queryString;
@@ -95,7 +99,7 @@ public class XQueryEvaluator implements QueryEvaluator {
             con.close();
             return toReturn;
         } catch (XQException | IOException e) {
-            e.printStackTrace();
+            logger.error("error while trying to read "+document.getName(), e);
         }
         return null;
     }

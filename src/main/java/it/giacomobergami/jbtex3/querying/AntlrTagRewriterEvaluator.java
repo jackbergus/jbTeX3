@@ -21,8 +21,9 @@
 
 package it.giacomobergami.jbtex3.querying;
 
-import it.giacomobergami.jbtex3.State;
+import it.giacomobergami.jbtex3.rules.State;
 import it.giacomobergami.jbtex3.rules.GenerateFunctions;
+import org.apache.log4j.Logger;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -38,6 +39,7 @@ import java.io.IOException;
  */
 public class AntlrTagRewriterEvaluator implements QueryEvaluator {
 
+    private final static Logger logger = Logger.getLogger(AntlrTagRewriterEvaluator.class);
     private final DocumentBuilderFactory dbFactory;
     private final DocumentBuilder dBuilder;
     private State state;
@@ -139,7 +141,7 @@ public class AntlrTagRewriterEvaluator implements QueryEvaluator {
             functions = file == null ? new GenerateFunctions() : GenerateFunctions.fromFile(file);
             return this;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("setQueryFile: error while reading query file [returning null] " + file.getName(), e);
             return null;
         }
     }
@@ -156,7 +158,7 @@ public class AntlrTagRewriterEvaluator implements QueryEvaluator {
             visit(document);
             return toString();
         } catch (IOException | SAXException e) {
-            e.printStackTrace();
+            logger.error("setQueryFile: error while reading document file [returning null] " + document.getName(), e);
             return null;
         }
     }

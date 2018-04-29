@@ -20,7 +20,7 @@
  *
  */
 
-package it.giacomobergami.jbtex3;
+package it.giacomobergami.jbtex3.rules;
 
 import org.w3c.dom.Node;
 

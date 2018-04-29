@@ -22,6 +22,7 @@
 package it.giacomobergami.jbtex3.querying;
 
 import java.io.File;
+import java.io.IOException;
 
 public interface QueryEvaluator {
     /**

@@ -19,25 +19,27 @@
  *
  */
 
-package it.giacomobergami.jbtex3;
+package it.giacomobergami.jbtex3.main;
 
-import it.giacomobergami.jbtex3.meta.MetaConfigurator;
-import it.giacomobergami.jbtex3.querying.AntlrTagRewriterEvaluator;
-import it.giacomobergami.jbtex3.querying.QueryEvaluator;
-import it.giacomobergami.jbtex3.querying.QueryEvaluatorFactory;
-import it.giacomobergami.jbtex3.querying.XQueryEvaluator;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
+import com.beust.jcommander.JCommander;
+import org.apache.log4j.Logger;
 
 public class Main {
+    private static CommandLineArguments arguments = new CommandLineArguments();
 
     public static void main(String args[]) {
-        MetaConfigurator conf = new MetaConfigurator();
+        JCommander
+                .newBuilder()
+                .addObject(arguments)
+                .defaultProvider(arguments.provider())
+                .build()
+                .parse(args);
+        arguments.setLogging();
+
+        Logger.getLogger(Main.class).info("closing now...");
+        /*MetaConfigurator conf = new MetaConfigurator();
         conf.setQueryFile(new File("acm_conference.txt"));
-        System.out.println(conf.useDocument(null));
+        System.out.println(conf.useDocument(null));*/
     }
 
 }

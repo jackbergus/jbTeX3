@@ -10,7 +10,9 @@ jbTeX3 is a spin off of jbTeX2 after an intensive use of LaTeX. At the time of t
 
 ## Installing dependencies
 
-This project uses Oracle's XQuery interpreter. For this reason, we advise each user to register himself to Oracle, and then run the `install-dependencies.sh` script to download and maven-install the required libraries.
+This project uses Oracle's XQuery interpreter. For this reason, we advise each user to register himself to Oracle, and then run the `install-dependencies.sh` script to download and maven-install the required libraries. The complete installation process is provided by either `linux-install.sh` or `macos-install.sh` scripts. After running such scripts, the `jbTeX3.sh` can be run to use the program from command line.
+
+**TODO** Add a GUI Wizard to guide in the rewriting process.
 
 ## Paper structure
 

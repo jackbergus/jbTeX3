@@ -28,31 +28,28 @@ import org.apache.log4j.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class CommandLineArguments {
-    private static class DefaultArguments implements IDefaultProvider {
-        @Override
-        public String getDefaultValueFor(String s) {
-            if (s.equals("-logFile")) {
-                return "conf/logger.properties";
-            } else if (s.equals("-out")) {
-                return "example.tex";
-            } else
-                return null;
-        }
-    }
 
-    public IDefaultProvider provider() {
-        return new DefaultArguments();
-    }
+    @Parameter(names = "--help", description = "Prints the current message", help = true)
+    private boolean help = false;
 
-    @Parameter(names = "-logFile", description = "Where the logging configurations are stored", converter = FileConverter.class)
-    public File logFile;
+    @Parameter(names = "--logFile", description = "Configuration file for the 'org.apache.log4j.*' loggers. If the provided file does not exists, logs are disabled.", converter = FileConverter.class)
+    public File logFile = new File("conf/logger.properties");
 
-    @Parameter(names = "-out", description = "Output file (if it exists)", converter = FileConverter.class)
+    @Parameter(names = "--out", description = "If this parameter is set, redirects the program's output into one single file", converter = FileConverter.class)
     public File latexFile;
+
+    @Parameter(names = "--style", description = "Style used to convert the XML-paper")
+    private String style;
+
+    @Parameter(names = "--printStyles", description = "Prints the available styles to be passed to the `--style` argument")
+    private boolean printStyles = false;
 
     public void setLogging() {
         if (logFile != null) {
@@ -71,5 +68,67 @@ public class CommandLineArguments {
                 }
             }
         }
+    }
+
+    private static final PrintStream console = System.out;
+    private PrintStream o;
+
+    public void resetConsole() {
+        if (o != null) {
+            o.flush();
+            o.close();
+            System.setOut(console);
+        }
+    }
+
+    public void redirectOutput() {
+        if (latexFile != null) {
+            // Creating a File object that represents the disk file.
+            try {
+                o = new PrintStream(latexFile);
+                // Store current System.out before assigning a new value
+                // Assign o to output stream
+                System.setOut(o);
+            } catch (FileNotFoundException e) {
+                Logger.getRootLogger().error("Error while trying to file-writing", e);
+            }
+        }
+    }
+
+    public boolean doPrintStyles() {
+        if (printStyles) {
+            System.out.println("Currently supported styles:");
+            File queries = new File("queries");
+            if (queries.exists() && queries.isDirectory()) {
+                for (File f : Objects.requireNonNull(queries.listFiles())) {
+                    if (f.isDirectory()) {
+                        if (new File(f, "main.txt").exists()) {
+                            System.out.println("* "+f.getName());
+                        }
+                    }
+                }
+            }
+        }
+        return printStyles;
+    }
+
+    public File getConfigurationFile() {
+        Logger logger = Logger.getRootLogger();
+        if (style == null) {
+            logger.error("Error: style non set");
+        } else {
+            File testFolder = new File("queries/"+style);
+            if (!testFolder.exists()) {
+                logger.error("Error: the following folder does not exists: "+ testFolder.getName());
+            } else {
+                File mainTest = new File(testFolder, "main.txt");
+                if (!mainTest.exists()) {
+                    logger.error("Error: each stylesheets requires a main.txt entry point");
+                } else {
+                    return mainTest;
+                }
+            }
+        }
+        return null;
     }
 }

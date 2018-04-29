@@ -31,17 +31,39 @@ public class Main {
     private static CommandLineArguments arguments = new CommandLineArguments();
 
     public static void main(String args[]) {
-        JCommander
+        JCommander jc = JCommander
                 .newBuilder()
+                .acceptUnknownOptions(false)
                 .addObject(arguments)
-                .defaultProvider(arguments.provider())
-                .build()
-                .parse(args);
+                .build();
+        try {
+            jc.setProgramName("jbTeX3");
+            jc.parse(args);
+        } catch (Exception e) {
+            jc.usage();
+            System.exit(1);
+        }
+
+        if (arguments.doPrintStyles()) {
+            System.exit(0);
+        }
+
         arguments.setLogging();
+        File stylesheet = arguments.getConfigurationFile();
+        if (stylesheet == null) {
+            jc.usage();
+            System.exit(1);
+        }
 
         MetaConfigurator conf = new MetaConfigurator();
-        conf.setQueryFile(new File("queries/plaintext/main.txt"));
-        System.out.println(conf.useDocument(null));
+        conf.setQueryFile(stylesheet);
+        String toWrite = conf.useDocument(null);
+
+        if (toWrite != null){
+            arguments.redirectOutput();
+            System.out.println(toWrite);
+            arguments.resetConsole();
+        }
     }
 
 }

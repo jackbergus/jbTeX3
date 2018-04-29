@@ -8,5 +8,5 @@ eval "xquery"  query val "doc('file:@default')/information/abstract/text()"
 
 print "".
 
-eval "latex"  query  val ""
+eval "latex"  query from file ""
               with document from file "paper".

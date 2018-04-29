@@ -40,7 +40,7 @@ public class Main {
         arguments.setLogging();
 
         MetaConfigurator conf = new MetaConfigurator();
-        conf.setQueryFile(new File("queries/acm/acm_conference.txt"));
+        conf.setQueryFile(new File("queries/ieee_jr/ieee_journal.txt"));
         System.out.println(conf.useDocument(null));
     }
 

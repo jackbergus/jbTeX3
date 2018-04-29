@@ -21,8 +21,16 @@
 
 let $nl := "&#10;"
 let $doc := doc("file:@default")
+let $lastAuthor := $doc/information/authors/author[last()]
+let $firstAuthor := ($doc/information/authors/author)[1]
 for $author in $doc/information/authors/author
-return  concat('\author{', $author/name/text(), ' ', $author/surname/text(), '}', $nl,
-               '\affiliation{\institution{', $author/affiliation/text(), '}}', $nl,
-               '\email{', $author/email/text(), '}', $nl, $nl)
+    let $fullName := concat($author/name/text(),'~',$author/surname/text())
+    return
+           if ($author=$lastAuthor) then
+                concat('and ', $fullName, $nl)
+           else if ($author=$firstAuthor) then
+                $fullName
+           else
+               concat(', ', $fullName)
+
 

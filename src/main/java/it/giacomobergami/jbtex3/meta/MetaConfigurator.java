@@ -76,7 +76,7 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 
 	@Override
 	protected String aggregateResult(String aggregate, String nextResult) {
-		return aggregate.concat(nextResult);
+		return aggregate == null ? nextResult : aggregate.concat(nextResult);
 	}
 
 	/**
@@ -128,7 +128,8 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 		File path = new File(ctx.fromfile().QSTRING().toString());
 		if (path.exists()) {
 			if (path.isFile()) {
-				return instance.useDocument(path);
+				String tmp = instance.useDocument(path);
+				return tmp;
 			} else if (path.isDirectory()) {
 				StringBuilder sb = new StringBuilder();
 				recursivePrint(path.listFiles(), sb);

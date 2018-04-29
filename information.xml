@@ -14,24 +14,24 @@
 			<surname>Bergami</surname>
 			<email>giacomo.bergami2@unibo.it</email>
 			<affiliation>University of Bologna</affiliation>
-			<img src="href" />
-			<bio></bio>
+			<img src="A_Bergami.png" />
+			<bio>has a bio</bio>
 		</author>
 		<author>
 			<name>André</name>
 			<surname>Petermann</surname>
 			<email>petermann@informatik.uni-leipzig.de</email>
 			<affiliation>University of Leipzig</affiliation>
-			<img src="href" />
-			<bio></bio>
+			<img src="A_Bertini.png" />
+			<bio>has a bio 2</bio>
 		</author>
 		<author>
 			<name>Danilo</name>
 			<surname>Montesi</surname>
 			<email>danilo.montesi@unibo.it</email>
 			<affiliation>University of Bologna</affiliation>
-			<img src="href" />
-			<bio></bio>
+			<img src="A_Montesi.png" />
+			<bio>has a bio 3</bio>
 		</author>
 	</authors>
 	<abstract>Despite the growing popularity of techniques related to graph summarization, a general operator for the flexible nesting of graphs is still missing.

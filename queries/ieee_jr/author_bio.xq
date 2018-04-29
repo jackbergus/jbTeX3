@@ -22,7 +22,5 @@
 let $nl := "&#10;"
 let $doc := doc("file:@default")
 for $author in $doc/information/authors/author
-return  concat('\author{', $author/name/text(), ' ', $author/surname/text(), '}', $nl,
-               '\affiliation{\institution{', $author/affiliation/text(), '}}', $nl,
-               '\email{', $author/email/text(), '}', $nl, $nl)
-
+let $fullName := concat($author/name/text(), ' ', $author/surname/text())
+return  concat('\vspace{-6mm}', $nl, '\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{', $author/img/@src ,'}}]{', $fullName ,'} ', $author/bio/text(), $nl, '\end{IEEEbiography}', $nl)

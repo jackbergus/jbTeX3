@@ -8,6 +8,9 @@ eval "default" query val ""
 eval "xquery"  query from file "queries/acm/conference.xq"
                      with document from file "information.xml".
 
+eval "xquery"  query from file "queries/default/title_abstract.xq"
+                     with document from file "information.xml".
+
 print "".
 print "".
 print "\\fancyhead{}".
@@ -17,7 +20,7 @@ eval "xquery" query from file "queries/acm/authors.xq"
               with document from file "information.xml".
 
 print "\\begin{document}".
-\print "\\maketitle".
+print "\\maketitle".
 
 eval "latex"  query from file "queries/acm/acm_latex.txt"
               with document from file "paper".

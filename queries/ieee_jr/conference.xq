@@ -32,4 +32,6 @@ return concat('\copyrightyear{', $doc/information/year/text(),  '}', $nl,
               ', ', $doc/information/place/text(), '}', $nl,
               '\acmPrice{', $doc/information/price/text() , '}', $nl,
               '\acmDOI{', $doc/information/doi/text() , '}', $nl,
-              '\acmISBN{', $doc/information/isbn/text() , '}', $nl)
+              '\acmISBN{', $doc/information/isbn/text() , '}', $nl,
+              '\title{', $doc/information/title/text(), '}', $nl, $nl,
+              '\begin{abstract}', $nl, $doc/information/abstract, $nl, '\end{abstract}', $nl )

@@ -1,5 +1,5 @@
 (:~
- : authors_center.xq
+ : queries/default/title_abstract.xq
  : This file is part of jbtex3
  :
  : Copyright (C) 2018 giacomo
@@ -18,11 +18,7 @@
  : along with jbtex3. If not, see <http://www.gnu.org/licenses/>.
  :
  :)
-
-let $nl := "&#10;"
-let $doc := doc("file:@default")
-for $author in $doc/information/authors/author
-return  concat('\author{', $author/name/text(), ' ', $author/surname/text(), '}', $nl,
-               '\affiliation{\institution{', $author/affiliation/text(), '}}', $nl,
-               '\email{', $author/email/text(), '}', $nl, $nl)
-
+let $nl := '&#10;'
+let $doc := doc('file:@default')
+return concat('\begin{abstract}', $nl, $doc/information/abstract/text(), $nl, '\end{abstract}',
+        $nl , $nl)

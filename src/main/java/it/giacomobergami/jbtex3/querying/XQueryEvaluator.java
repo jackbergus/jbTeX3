@@ -87,9 +87,6 @@ public class XQueryEvaluator implements QueryEvaluator {
                     return null;
             }
 
-            //OXQDataSource ds = new OXQDataSource();
-            //XQConnection con = ds.getConnection();
-            //String query = "<hello-world>{1 + 1}</hello-world>";
             XQSequence result = expr.executeQuery();
             String toReturn = result.getSequenceAsString(null);
 

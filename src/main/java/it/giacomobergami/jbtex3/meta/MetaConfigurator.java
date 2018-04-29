@@ -30,14 +30,11 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
- * This class provides an empty implementation of {@link metaVisitor},
- * which can be extended to create a visitor which only needs to handle a subset
- * of the available methods.
- *
- * @param <T> The return type of the visit operation. Use {@link Void} for
- * operations with no return type.
+ * Combines the different QueryEvaluators within one single combinator file
  */
 public class MetaConfigurator extends AbstractParseTreeVisitor<String> implements metaVisitor<String>, QueryEvaluator {
 	private final String emptyString = "";
@@ -99,6 +96,20 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 	 */
 	@Override public String visitPrint(metaParser.PrintContext ctx) { return ctx.QSTRING().getText().concat("\n"); }
 
+	private void recursivePrint(File[] arr, StringBuilder sb)
+	{
+		ArrayList<File> files = new ArrayList<>(arr.length);
+		for (File f : arr) {
+			if(f.isFile())
+				files.add(f);
+			else if(f.isDirectory())
+				recursivePrint(Objects.requireNonNull(f.listFiles()), sb);
+		}
+		for (File file : files) {
+			sb.append(instance.useDocument(file));
+		}
+	}
+
 	/**
 	 * Appends the query result to the file
 	 */
@@ -112,7 +123,17 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 		visit(ctx.opt());
 
 		// Returing the query result to be appended
-		return instance.useDocument(new File(ctx.fromfile().QSTRING().toString()));
+		File path = new File(ctx.fromfile().QSTRING().toString());
+		if (path.exists()) {
+			if (path.isFile()) {
+				return instance.useDocument(path);
+			} else if (path.isDirectory()) {
+				StringBuilder sb = new StringBuilder();
+				recursivePrint(path.listFiles(), sb);
+				return sb.toString();
+			}
+		}
+		return "";
 	}
 	/**
 	 * {@inheritDoc}
@@ -154,7 +175,9 @@ public class MetaConfigurator extends AbstractParseTreeVisitor<String> implement
 
 	@Override
 	public QueryEvaluator setQueryFile(File file) {
-		try {
+		if (!file.exists())
+			return setQueryString("");
+		else try {
 			parser = new metaParser(new CommonTokenStream(new metaLexer(CharStreams.fromPath(file.toPath()))));
 			return this;
 		} catch (IOException e) {

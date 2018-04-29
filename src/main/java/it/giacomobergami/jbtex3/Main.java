@@ -35,10 +35,6 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String args[]) {
-        /*
-        QueryEvaluator qe = QueryEvaluatorFactory.istantiate(XQueryEvaluator.class.getCanonicalName());
-        qe.setQueryFile(new File("authors.xq"));
-        System.out.println(qe.useDocument(new File("informations.xml")));*/
         MetaConfigurator conf = new MetaConfigurator();
         conf.setQueryFile(new File("acm_conference.txt"));
         System.out.println(conf.useDocument(null));

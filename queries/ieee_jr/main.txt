@@ -18,6 +18,8 @@ eval "xquery"  query from file "queries/ieee_jr/authors_center.xq"
 
 print "\\end{center}".
 
+eval "xquery"  query from file "queries/ieee_jr/authors_infos.xq"
+                     with document from file "information.xml".
 
 print "}".
 print "\\maketitle".

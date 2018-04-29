@@ -14,4 +14,14 @@ This project uses Oracle's XQuery interpreter. For this reason, we advise each u
 
 ## Paper structure
 
-Each paper is defined by a ``paper`` folder, where the paper is written in XML format, and ``information.xml`` containing the title, author and conference/journal information.
+Each paper is defined by a ``paper`` folder, where the paper is written in XML format, and ``information.xml`` containing the title, author and conference/journal information. An example of the expected folder structure is provided by the root folder of this project.
+
+## Stylesheets
+
+Each folder `x` in `queries` containing a `main.txt` is considered as a stylesheet. Each stylesheet `x` has a main entrypoint (`x/main.txt`) which composes the output of the different XQueries and different outputs of the XML documents. 
+
+* `acm`: A possible configuration for ACM Conferences.
+* `ieee_jr`: Main configuration for the IEEE Journal.
+* `plaintext`: Converting the paper into human-readable plaintext.
+
+These options must be specified as a `--style` parameter. More styles will come in the following releases.

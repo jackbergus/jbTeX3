@@ -6,7 +6,7 @@ jbTeX3 is a spin off of jbTeX2 after an intensive use of LaTeX. At the time of t
      If I want to resubmit the same paper to different conferences, I have to do some major rewriting pre-processing. This goal can be achieved by using XML as a meta-markup language and using XQuery/Antlr4 for matching XML information and rewriting into tex sources.
  * As a consequence of the former remark, I want to generate plain text representation in a semantic-aware form.
  * We can use the FileSystem to dictate the file-inclusion order for the different article's parts, without using `\input` or `\include` directives.
- 
+ * Sometimes (e.g., books or thesis) bibliographies became huge, and you may have duplicate references or missing ones. You want to remove the first and manually impute the second ones.
 
 ## Installing dependencies
 

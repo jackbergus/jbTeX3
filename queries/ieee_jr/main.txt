@@ -31,7 +31,7 @@ print "\\IEEEpeerreviewmaketitle".
 print "".
 print "".
 
-eval "latex"  query from file "queries/acm/acm_latex.txt"
+eval "latex"  query from file "queries/ieee_jr/ieeejr_latex.txt"
               with document from file "paper".
 
 eval "xquery" query from file "queries/ieee_jr/author_bio.xq"

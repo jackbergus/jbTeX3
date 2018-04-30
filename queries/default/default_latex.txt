@@ -34,6 +34,5 @@ br => "\\medskip
 
 cite => "\\cite{" //text() "}";
 a => "\\url{" @href "}";
-img => "\\includefigure[" @(scale){"scale="@scale} "]{" @src "}" ;
 b => "\\textbf{" //text() "}";
 i => "\\textit{" //text() "}".

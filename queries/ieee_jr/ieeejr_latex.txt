@@ -1,1 +1,24 @@
-import "queries/default/default_latex.txt".
+import "queries/default/default_latex.txt";
+
+proof => "\\begin{IEEEproof}" @(ref){"[Proof of " @type " \ref{" @ref "}]"} "
+" //text() "
+\\end{IEEEproof}";
+
+img => "\\begin{figure" @(wide){"*"} "}[!t]
+\\centering
+\\includegraphics[" @(scale){"scale="@scale} "]{" @src "}
+\\caption{" @alt "}
+\\label{" @id "}
+\\end{figure" @(wide){"*"} "}";
+
+
+figgroup => "\\begin{figure" @(wide){"*"} "}[!t]
+\\centering
+" //text() "
+\\caption{" @alt "}
+\\label{" @id "}
+\\end{figure" @(wide){"*"} "}";
+
+
+figure => "\\subfloat[" @alt "]{\\includegraphics[" @(scale){"scale="@scale}  "]{" @src "}\\label{" @id "}}
+\\hfil".

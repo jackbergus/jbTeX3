@@ -21,5 +21,11 @@
 
 <document>
     <h2>Introduction</h2>
+    <figgroup id="gr1" alt="this is a group">
+        <figure scale=".2" id="gr11" alt="This is another picture" src="A_Bergami.png"/>
+        <figure scale=".2" id="gr11" alt="This is another picture2" src="A_Bergami.png"/>
+    </figgroup>
+    <img id="bergus" src="A_Bergami.png" scale=".2" alt="Birth ratio versus life expectancy, world population trends from 1960 (source: World Bank Open Data)" />
     <p>This is a hello world, <b>forsooth</b>!</p>
+
 </document>

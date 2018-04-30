@@ -22,10 +22,13 @@
 package it.giacomobergami.jbtex3.main;
 
 import com.beust.jcommander.JCommander;
+import it.giacomobergami.jbtex3.bibliography.HandleBibliography;
 import it.giacomobergami.jbtex3.meta.MetaConfigurator;
 import org.apache.log4j.Logger;
+import org.jbibtex.ParseException;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Main {
     private static CommandLineArguments arguments = new CommandLineArguments();
@@ -55,15 +58,23 @@ public class Main {
             System.exit(1);
         }
 
-        MetaConfigurator conf = new MetaConfigurator();
-        conf.setQueryFile(stylesheet);
-        String toWrite = conf.useDocument(null);
+        if (arguments.haveToCheckMissingCitations()) {
+            arguments.checkMissingCitations();
+        } else if (arguments.haveToImpueDuplications()) {
+            arguments.imputeDuplications();
+        } else {
+            MetaConfigurator conf = new MetaConfigurator();
+            conf.setQueryFile(stylesheet);
+            String toWrite = conf.useDocument(null);
 
-        if (toWrite != null){
-            arguments.redirectOutput();
-            System.out.println(toWrite);
-            arguments.resetConsole();
+            if (toWrite != null){
+                arguments.redirectOutput();
+                System.out.println(toWrite);
+                arguments.resetConsole();
+            }
         }
+
+
     }
 
 }

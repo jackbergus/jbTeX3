@@ -1,6 +1,6 @@
 
 /*
- * Utils.java
+ * Antlr4Utils.java
  * This file is part of jbtex3
  *
  * Copyright (C) 2018 giacomo
@@ -20,7 +20,7 @@
  *
  */
 
-package it.giacomobergami.jbtex3;
+package it.giacomobergami.jbtex3.utils;
 
 import org.antlr.v4.runtime.*;
 
@@ -33,7 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class Utils {
+public class Antlr4Utils {
 
     /**
      * Given a file to parse and two associated lexers and parser classes, instantiates the desired parser

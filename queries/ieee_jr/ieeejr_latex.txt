@@ -1,6 +1,6 @@
 import "queries/default/default_latex.txt";
 
-proof => "\\begin{IEEEproof}" @(ref){"[Proof of " @type " \ref{" @ref "}]"} "
+proof => "\\begin{IEEEproof}" @(ref){"[Proof of " @type " \\ref{" @ref "}]"} "
 " //text() "
 \\end{IEEEproof}";
 

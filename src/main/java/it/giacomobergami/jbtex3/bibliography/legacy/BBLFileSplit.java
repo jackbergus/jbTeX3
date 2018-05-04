@@ -19,7 +19,7 @@
  *
  */
 
-package it.giacomobergami.jbtex3.bibliography;
+package it.giacomobergami.jbtex3.bibliography.legacy;
 
 import it.giacomobergami.jbtex3.utils.FileStringIterator;
 import it.giacomobergami.jbtex3.utils.FilterIterator;
@@ -31,12 +31,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Bibligraphy iterator over bbl files.
+ * Each entry is represented as a list of strings
+ */
 public class BBLFileSplit implements Iterator<List<String>> {
     private final FileStringIterator fsi;
+
     private BBLFileSplit(File fsi) throws FileNotFoundException {
         this.fsi = new FileStringIterator(fsi);
     }
 
+    /**
+     * Detects all the bibliographic references from a file
+     * @param f                       Path towards the .bbl file
+     * @throws FileNotFoundException
+     */
     public static Iterator<List<String>> iterateOver(File f) {
         try {
             return new FilterIterator<List<String>>(new BBLFileSplit(f)) {
@@ -56,6 +66,10 @@ public class BBLFileSplit implements Iterator<List<String>> {
         return fsi.hasNext();
     }
 
+    /**
+     * Returns one bbl citation
+     * @return
+     */
     @Override
     public List<String> next() {
         ArrayList<String> toArray = new ArrayList<>();
@@ -69,12 +83,4 @@ public class BBLFileSplit implements Iterator<List<String>> {
         }
         return toArray;
     }
-
-    public static void main(String args[]) throws FileNotFoundException {
-        Iterable<List<String>> it = () -> BBLFileSplit.iterateOver(new File("/mnt/DEC4763AC47614CD/thesis/main.bbl"));
-        for (List<String> x : it) {
-            System.out.println(x);
-        }
-    }
-
 }

@@ -19,7 +19,7 @@
  *
  */
 
-package it.giacomobergami.jbtex3.bibliography;
+package it.giacomobergami.jbtex3.bibliography.legacy;
 
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
@@ -34,6 +34,10 @@ import java.util.stream.Stream;
 public class BBLRepresent {
 
     HashMap<String, List<String>> bibtex_To_Item;
+
+    /**
+     * Univoquely associating the key to the value it represents
+     */
     HashBiMap<String,String> generatedToBibItem;
 
     public BBLRepresent(File f) {
@@ -42,18 +46,25 @@ public class BBLRepresent {
         bibtex_To_Item = new HashMap<>();
         while (bfs.hasNext()) {
             List<String> item = bfs.next();
+
+            // 1) Getting the reference as a name
             String header = item.remove(0).replace("\\bibitem","");
             Pattern logEntry = Pattern.compile("\\[(.*?)\\]\\{(.*?)\\}");
             Matcher matchPattern = logEntry.matcher(header);
             if (matchPattern.find()) {
-                String view = matchPattern.group(1);
-                String bibitme = matchPattern.group(2);
-                generatedToBibItem.put(view, bibitme);
-                bibtex_To_Item.put(bibitme, item);
+                String key = matchPattern.group(1);
+                String bib_item_information = matchPattern.group(2);
+                generatedToBibItem.put(key, bib_item_information);
+                bibtex_To_Item.put(bib_item_information, item);
             }
         }
     }
 
+    /**
+     * Checks which is the
+     * @return
+     */
+    @Deprecated
     public Stream<Collection<String>> uniformKeysWithSameValue() {
         Multimap<List<String>, String> multiMap = HashMultimap.create();
         for (Map.Entry<String, List<String>> entry : bibtex_To_Item.entrySet()) {
@@ -68,7 +79,7 @@ public class BBLRepresent {
     }
 
     public static void main(String args[]) {
-        new BBLRepresent(new File("/mnt/DEC4763AC47614CD/thesis/main.bbl")).uniformKeysWithSameValue();
+        new BBLRepresent(new File("/media/giacomo/Data/thesis/main.bbl")).uniformKeysWithSameValue();
     }
 
     public String seekBibitemFromGenerated(String k) {

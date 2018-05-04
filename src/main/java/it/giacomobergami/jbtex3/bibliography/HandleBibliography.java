@@ -21,9 +21,10 @@
 
 package it.giacomobergami.jbtex3.bibliography;
 
+import it.giacomobergami.jbtex3.bibliography.legacy.BBLRepresent;
+import it.giacomobergami.jbtex3.bibliography.legacy.HandleBibliographyLegacy;
 import it.giacomobergami.jbtex3.legacy_latex.jbtex.ProjectConfiguration;
 import it.giacomobergami.jbtex3.legacy_latex.tex.TexWalker;
-import it.giacomobergami.jbtex3.utils.FilterIterator;
 import org.jbibtex.ParseException;
 
 import java.io.File;
@@ -31,9 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class HandleBibliography  {
 
@@ -138,28 +137,8 @@ public class HandleBibliography  {
     public Set<String> getMissingCitationWarning() throws IOException {
         Set<String> toret;
         {
-            Set<String> missings = Files
-                    .readAllLines(Paths.get(texFile.replace(".tex",".blg")))
-                    .stream()
-                    .filter(x -> x.startsWith("Warning--I didn't find a database entry for"))
-                    .map(x -> {
-                        x = x.replace("Warning--I didn't find a database entry for \"","");
-                        return x.substring(0, x.length()-1);
-                    })
-                    .collect(Collectors.toSet());
-
-            Iterator<File> fileWithMissingElements = new FilterIterator<File>(new TexWalker(texFile).walk().iterator()) {
-                @Override
-                public boolean test(File f) {
-                    try {
-                        String k = new String(Files.readAllBytes(f.toPath()), StandardCharsets.UTF_8);
-                        return missings.stream().anyMatch(k::contains);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return false;
-                    }
-                }
-            };
+            Set<String> missings = HandleBibliographyLegacy.getMissingsLegacy(texFile);
+            Iterator<File> fileWithMissingElements = HandleBibliographyLegacy.getFilesWithMissingsLegacy(missings, texFile);
 
             Set<String> notMatched = new HashSet<>();
             notMatched.addAll(missings);

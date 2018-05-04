@@ -28,10 +28,19 @@ import java.io.*;
 
 public class BibtexFile {
 
+    /**
+     * Library representation of a database
+     */
     BibTeXDatabase db;
     private BibTeXParser bibtexParser;
     File self;
 
+    /**
+     * Given a bibliography .bib file, creates a database instance
+     * @param file                      Bibliography file
+     * @throws FileNotFoundException
+     * @throws ParseException
+     */
     public BibtexFile(File file) throws FileNotFoundException, ParseException {
         self = file;
         bibtexParser = new BibTeXParser() {
@@ -42,10 +51,19 @@ public class BibtexFile {
         db = bibtexParser.parse(new FileReader(file));
     }
 
+    /**
+     * Returns a bibliographic entry
+     * @param key
+     * @return
+     */
     public BibTeXEntry getEntry(String key) {
         return db.resolveEntry(new Key(key));
     }
 
+    /**
+     * Removes the entry from the file database
+     * @param key
+     */
     public void removeEntry(String key) {
         BibTeXEntry entry;
         if ((entry = getEntry(key))!= null) {

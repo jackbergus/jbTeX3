@@ -53,7 +53,7 @@ public class CommandLineArguments {
     @Parameter(names = "--legacy-missing-citations", description = "Checks which citations are unreferenced by the bibliography. Legacy options, it still assumes an old-latex layout.")
     private boolean doCheckMissingCitations;
 
-    @Parameter(names = "--legacy-missing-citations", description = "Checks which citations may be duplicated within the same document. Legacy options, it still assumes an old-latex layout.")
+    @Parameter(names = "--legacy-missing-impute", description = "Checks which citations may be duplicated within the same document. Legacy options, it still assumes an old-latex layout.")
     private boolean doImputeDuplicateReferences;
 
     @Parameter(names = "--legacy-tex-entry", description = "W.r.t. Old latex legacy checks, the latex entry point (default value: main.tex)")
@@ -162,7 +162,7 @@ public class CommandLineArguments {
         }
     }
 
-    public boolean haveToImpueDuplications() {
+    public boolean haveToImputeDuplications() {
         return doImputeDuplicateReferences;
     }
 
@@ -174,7 +174,7 @@ public class CommandLineArguments {
             if (bibliographyFile == null) {
                 Logger.getRootLogger().warn("Error: the bibliography file information is missing. I assume that a file called main.bib is within the current folder.");
             }
-            new HandleBibliography("main.tex", "main.bib").imputeReallyToBeReplacedItems();
+            new HandleBibliography("main.tex", "main.bib").removeDuplicates();
         } catch (IOException | ParseException e) {
             Logger.getRootLogger().error("Error while performig bibliography check: ", e);
             System.exit(1);

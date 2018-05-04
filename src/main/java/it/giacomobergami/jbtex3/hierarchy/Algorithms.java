@@ -1,5 +1,5 @@
 /*
- * Tex2Walker.java
+ * Algorithms.java
  * This file is part of jbtex3
  *
  * Copyright (C) 2018 giacomo
@@ -19,12 +19,7 @@
  *
  */
 
-package it.giacomobergami.jbtex3.legacy_latex.tex;
+package it.giacomobergami.jbtex3.hierarchy;
 
-import it.giacomobergami.jbtex3.utils.FileExtensionWalker;
-
-public class TexWalker extends FileExtensionWalker {
-    public TexWalker(String fileMainTex) {
-        super(fileMainTex, ".tex");
-    }
+public interface Algorithms {
 }

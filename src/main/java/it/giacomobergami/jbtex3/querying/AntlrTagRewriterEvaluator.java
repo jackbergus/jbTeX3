@@ -23,6 +23,7 @@ package it.giacomobergami.jbtex3.querying;
 
 import it.giacomobergami.jbtex3.rules.State;
 import it.giacomobergami.jbtex3.rules.GenerateFunctions;
+import it.giacomobergami.jbtex3.utils.XMLDomRead;
 import org.apache.log4j.Logger;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -40,8 +41,6 @@ import java.io.IOException;
 public class AntlrTagRewriterEvaluator implements QueryEvaluator {
 
     private final static Logger logger = Logger.getLogger(AntlrTagRewriterEvaluator.class);
-    private final DocumentBuilderFactory dbFactory;
-    private final DocumentBuilder dBuilder;
     private State state;
     private GenerateFunctions functions;
 
@@ -59,8 +58,6 @@ public class AntlrTagRewriterEvaluator implements QueryEvaluator {
      * @throws IOException
      */
     public AntlrTagRewriterEvaluator(File file) throws ParserConfigurationException, IOException {
-        dbFactory = DocumentBuilderFactory.newInstance();
-        dBuilder = dbFactory.newDocumentBuilder();
         setQueryFile(file);
     }
 
@@ -69,10 +66,8 @@ public class AntlrTagRewriterEvaluator implements QueryEvaluator {
         parse(state.getCurrentVisit());
     }
 
-    private void initState(File fXmlFile) throws IOException, SAXException {
-        Document doc = dBuilder.parse(fXmlFile);
-        doc.getDocumentElement().normalize();
-        state = new State(doc.getDocumentElement());
+    private void initState(File fXmlFile) {
+        state = new State(XMLDomRead.readXMLDocument(fXmlFile));
     }
 
     private void parse(Node current) {

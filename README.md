@@ -25,5 +25,6 @@ Each folder `x` in `queries` containing a `main.txt` is considered as a styleshe
 * `acm`: A possible configuration for ACM Conferences.
 * `ieee_jr`: Main configuration for the IEEE Journal.
 * `plaintext`: Converting the paper into human-readable plaintext.
+* `springer`: A springer journal.
 
 These options must be specified as a `--style` parameter. More styles will come in the following releases.

@@ -71,7 +71,7 @@ public class State {
     }
 
     public void appendText(String textContent) {
-        currentString = currentString.concat(" ").concat(textContent);
+        currentString = currentString.concat(textContent);
     }
 
     public void clearMap() {

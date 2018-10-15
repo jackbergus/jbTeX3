@@ -52,7 +52,7 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
 	public GenerateFunctions() {}
 
 	/**
-	 * Instantiates the generator to a given parsed file
+	 * Instantiates the generatorconditionalExpandOrFalse to a given parsed file
 	 * @param file
 	 * @return
 	 * @throws IOException
@@ -112,7 +112,7 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
         patternsParser.PatternContext pattern = ctx.pattern();
         if (pattern != null) {
             Function<State, String> fun = ctx.pattern().accept(this);
-            String attribute = ctx.SMALLER().getText();
+            String attribute = ctx.SMALLER().getText().trim();
             rewritings.put(attribute, fun);
         } else {
             visitChildren(ctx);
@@ -145,7 +145,7 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
 	 */
 	@Override
 	public Function<State, String>  visitExpandAttribute(patternsParser.ExpandAttributeContext ctx) {
-		return x -> x.getAttribute(ctx.SMALLER().getText());
+		return x -> x.getAttribute(ctx.SMALLER().getText()).trim();
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class GenerateFunctions extends AbstractParseTreeVisitor<Function<State, 
 	 */
 	@Override
 	public Function<State, String> visitQuotedString(patternsParser.QuotedStringContext ctx) {
-		return x -> ctx.QSTRING().getText();
+		return x -> ctx.QSTRING().getText().trim();
 	}
 
 	/**

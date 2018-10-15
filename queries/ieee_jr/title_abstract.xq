@@ -20,5 +20,19 @@
  :)
 let $nl := '&#10;'
 let $doc := doc('file:@default')
-return concat('\title{', $doc/information/title/text(), '}', $nl, $nl,
-              '\begin{abstract}', $nl, $doc/information/abstract/text(), $nl, '\end{abstract}' )
+let $header := concat('\title{', $doc/information/title/text(), '}', $nl, $nl,'\IEEEtitleabstractindextext{', $nl,
+        '\begin{abstract}', $nl, $doc/information/abstract/text(), $nl, '\end{abstract}', $nl, '\begin{IEEEkeywords}')
+let $tail := concat('\end{IEEEkeywords}}', $nl , '\maketitle', $nl)
+let $keys := $doc/information/keys/key
+let $lastKey := $keys[last()]
+let $firstKey := ($keys)[1]
+for $key in  $keys
+return
+    if (count($keys)=1) then
+        concat($header, $key//text(), $nl, $tail)
+    else if ($key=$lastKey) then
+        concat(', ', $key//text(), $nl, $tail)
+    else if ($key=$firstKey) then
+            concat($header, $key//text())
+        else
+            concat(',', $key//text())

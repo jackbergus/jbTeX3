@@ -8,9 +8,6 @@ eval "default" query val ""
 print "".
 print "\\begin{document}".
 
-eval "xquery"  query from file "queries/default/title.xq"
-                     with document from file "information.xml".
-
 print "\\author{\\begin{center}".
 
 eval "xquery"  query from file "queries/ieee_jr/authors_center.xq"
@@ -22,9 +19,7 @@ eval "xquery"  query from file "queries/ieee_jr/authors_infos.xq"
                      with document from file "information.xml".
 
 print "}".
-print "\\maketitle".
-
-eval "xquery"  query from file "queries/default/abstract.xq"
+eval "xquery"  query from file "queries/ieee_jr/title_abstract.xq"
                      with document from file "information.xml".
 
 print "\\IEEEpeerreviewmaketitle".
